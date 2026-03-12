@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@import "tailwindcss";
+
+@theme {
+  --color-sage-dark: #0f172a; /* Slate 900 for modern dark accents instead of dull green */
+  --color-sage-light: #94a3b8; /* Slate 400 for secondary text */
+  --color-cream: #f8fafc; /* Slate 50 for a cleaner background */
+  --color-terracotta: #f43f5e; /* Rose 500 for vibrant danger/accents */
+  
+  --color-brand-primary: #3b82f6; /* Beautiful Blue */
+  --color-brand-secondary: #8b5cf6; /* Vibrant Violet */
+  --color-brand-gradient: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+
+  --font-display: 'Outfit', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--color-cream);
+  color: #1e293b; /* Slate 800 */
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display);
+}
+
+/* Premium Utilities */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
+}
+
+.text-gradient {
+  background: var(--color-brand-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Base interactive animation */
+.hover-lift {
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
+}
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.15);
+}
+.hover-lift:active {
+  transform: translateY(0);
+}
