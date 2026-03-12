@@ -12,6 +12,7 @@ export default function Register() {
     username: '',
     email: '',
     phone: '',
+    role: 'pet_owner',
     password: '',
     password2: '',
   })
@@ -42,7 +43,9 @@ export default function Register() {
     setLoading(true)
     try {
       // Register
-      await registerAPI(form)
+      await registerAPI({
+        ...form, role: form.role || "pet_owner"
+      })
 
       // Auto-login after registration
       const { data } = await loginAPI({
@@ -55,7 +58,7 @@ export default function Register() {
     } catch (err) {
       console.error('Registration error:', err);
       if (!err.response) {
-        // Network error (backend down or CORS)
+        console.log(err.response?.data)
         toast.error(`Connection failed: ${err.message}. Is the backend running?`);
       } else {
         const msg = err.response.data
