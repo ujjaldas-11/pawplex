@@ -3,7 +3,7 @@ import { useAuthStore } from '../store/authStore';
 
 export const getAnalytics = async () => {
   try {
-    const response = await api.get('/analytics');
+    const response = await api.get('/dashboard/stats/');
     return response.data;
   } catch (error) {
     console.warn("Using mock analytics data");

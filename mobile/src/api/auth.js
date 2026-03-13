@@ -73,13 +73,13 @@ export const login = async (data) => {
 
 // 🔹 Get user profile
 export const getProfile = () => {
-  return API.get("/auth/profile/");
+  return API.get("/auth/me/");
 };
 
 
 // 🔹 Update profile
 export const updateProfile = (data) => {
-  return API.put("/auth/profile/", data);
+  return API.put("/auth/me/", data);
 };
 
 

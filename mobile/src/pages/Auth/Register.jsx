@@ -12,7 +12,7 @@ export default function Register() {
     username: '',
     email: '',
     phone: '',
-    role: 'pet_owner',
+    role: 'owner',
     password: '',
     password2: '',
   })
@@ -44,7 +44,7 @@ export default function Register() {
     try {
       // Register
       await registerAPI({
-        ...form, role: form.role || "pet_owner"
+        ...form, role: form.role || "owner"
       })
 
       // Auto-login after registration

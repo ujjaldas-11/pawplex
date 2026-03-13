@@ -26,27 +26,16 @@ export const Login = () => {
     setLoading(true);
     
     try {
-      // Mock login since backend might not exist
-      // In a real app we'd do: const { data } = await api.post('/auth/login', { email, password });
+      const { data } = await api.post('/auth/login/', { username: email, password });
       
-      // Simulating API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // Determine mock role based on email to make testing easy
-      let role = 'vet';
-      if (email.includes('shelter')) role = 'shelter';
-      if (email.includes('store')) role = 'store';
-
-      const mockUser = {
-        id: 'usr_123',
-        name: email.split('@')[0],
-        email,
-        role,
+      const userObj = {
+        id: data.id,
+        name: data.username,
+        email: data.email,
+        role: data.role,
       };
       
-      const mockToken = 'mock_jwt_token_123';
-      
-      login(mockUser, mockToken);
+      login(userObj, data.access);
       navigate('/overview');
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to sign in. Please try again.');

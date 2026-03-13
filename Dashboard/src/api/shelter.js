@@ -2,8 +2,16 @@ import api from './axios';
 
 export const getListings = async () => {
   try {
-    const response = await api.get('/shelter/listings');
-    return response.data;
+    const response = await api.get('/adoption/');
+    return response.data.map(item => ({
+      id: item.id,
+      name: item.pet_name,
+      species: item.species,
+      breed: item.breed || 'Unknown',
+      age: `${item.age_months} mos`,
+      status: item.status,
+      photo: item.photo || 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?q=80&w=200&auto=format&fit=crop'
+    }));
   } catch (error) {
     console.warn("Using mock listings data");
     return [
@@ -18,8 +26,17 @@ export const getListings = async () => {
 
 export const getAdoptionRequests = async () => {
   try {
-    const response = await api.get('/shelter/requests');
-    return response.data;
+    const response = await api.get('/adoption/applications/');
+    return response.data.map(req => ({
+      id: req.id,
+      applicant: req.requester_username || 'Unknown',
+      email: 'Unknown',
+      phone: 'Unknown',
+      petName: 'Listing #' + req.listing,
+      date: req.created_at,
+      message: req.message,
+      status: req.status
+    }));
   } catch (error) {
     return [
       { id: 101, applicant: 'Alice Green', email: 'alice@example.com', phone: '+91 98765 00101', petName: 'Max', date: '2025-03-08', message: 'I have a large backyard and love Labradors.', status: 'pending' },

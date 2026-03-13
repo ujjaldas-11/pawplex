@@ -2,8 +2,15 @@ import api from './axios';
 
 export const getAppointments = async () => {
   try {
-    const response = await api.get('/appointments');
-    return response.data;
+    const response = await api.get('/appointments/');
+    return response.data.map(app => ({
+      id: app.id,
+      patient: app.pet_name || 'Unknown',
+      pet: 'Pet',
+      date: app.date_time,
+      type: app.reason || 'General',
+      status: app.status
+    }));
   } catch (error) {
     console.warn("Using mock appointments data");
     return [
@@ -18,8 +25,16 @@ export const getAppointments = async () => {
 
 export const getPatients = async () => {
   try {
-    const response = await api.get('/patients');
-    return response.data;
+    const response = await api.get('/pets/');
+    return response.data.map(pet => ({
+      id: pet.id,
+      name: pet.name,
+      owner: pet.owner_username || 'Unknown',
+      age: pet.dob || 'Unknown',
+      species: pet.species,
+      breed: pet.breed || 'Unknown',
+      lastVisit: pet.updated_at || pet.created_at || 'Unknown'
+    }));
   } catch (error) {
     return [
       { id: 1, name: 'Bella', owner: 'John Doe', age: '3 yrs', species: 'Dog', breed: 'Golden Retriever', lastVisit: '2025-02-15' },

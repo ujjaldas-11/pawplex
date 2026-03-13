@@ -4,6 +4,7 @@ import { PawPrint } from 'lucide-react';
 import { useAuthStore } from '../../store/authStore';
 import { Button } from '../../components/ui/Button';
 import { Input } from '../../components/ui/Input';
+import api from '../../api/axios';
 
 export const Register = () => {
   const [formData, setFormData] = useState({
@@ -41,20 +42,30 @@ export const Register = () => {
     setLoading(true);
     
     try {
-      // Simulating API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      const mockUser = {
-        id: 'usr_' + Date.now(),
-        name: formData.name,
+      // Register with the backend
+      await api.post('/auth/register/', {
+        username: formData.email, // using email as username
         email: formData.email,
+        password: formData.password,
+        password2: formData.confirmPassword,
         role: formData.role,
-        organization: formData.organization
+        phone: '1234567890', // dummy phone number
+      });
+
+      // Login explicitly after registration
+      const { data } = await api.post('/auth/login/', { 
+        username: formData.email, 
+        password: formData.password 
+      });
+      
+      const userObj = {
+        id: data.id,
+        name: data.username,
+        email: data.email,
+        role: data.role,
       };
       
-      const mockToken = 'mock_jwt_token_456';
-      
-      login(mockUser, mockToken);
+      login(userObj, data.access);
       navigate('/overview');
     } catch (err) {
       setError('Failed to register. Please try again.');
