@@ -1,3 +1,3 @@
 # pawplex
 
-Innovate x hackatho 2026
+Innovate x hackathon 2026
